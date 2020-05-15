@@ -1,0 +1,36 @@
+<div class="container-fluid comp-body">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-10">
+          <input #inputCountry type="text" name="country input" id="" placeholder="please enter country name" style="width: 17rem;">
+        </div>
+        <div class="col-md-2">
+          <img [src]="btn.add" class = "ctrl-btn" alt="add-btn" style="width: 1.8rem;" 
+          (click)="addCountry()"/>
+        </div>
+      </div>
+      <hr>
+      <div>
+        <p>Recent Locations</p>
+        <hr>
+        <ul>
+          <li *ngFor="let country of countries" #removeCountry>
+            <div class="row">
+              <div class="col-md-9">{{ country }}</div>
+              <div class="col-md-1">
+                <img [src]="btn.reload" class = "ctrl-btn" alt="reload-btn" style="width: 1rem;" (click)="reloadCountry()"/>
+              </div>
+              <div class="col-md-1">
+                <img [src]="btn.remove" class = "ctrl-btn" alt="remove-btn" style="width: 0.9rem;" 
+                (click)="removeCountry()"/>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <button class="btn btn-danger"
+        (click)="clearList()" >clear</button>
+      </div>
+    </div>
+  </div>
+</div>
