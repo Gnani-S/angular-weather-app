@@ -1,6 +1,6 @@
 <div class="container  app-body">
   <div class="row">
     <div class="col-md-4 comp-body"><country-list></country-list></div>
-    <div class="col-md-7 comp-body"><country-weather-info></country-weather-info></div>
+    <div class="col-md-7 comp-body"><country-weather-info [cityName]="selectedCity" *ngIf="selectedCity"></country-weather-info></div>
   </div>
 </div>

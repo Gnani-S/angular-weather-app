@@ -1,3 +1,54 @@
-<p>
-  country-weather-info works!
-</p>
+<div class="container-fluid right-pannel">
+  <div class="row">
+    <div class="col-md-10">
+      <h3>{{ this.data.cityName }}</h3>
+    </div>
+    <div class="col-md-2">
+      <img
+        [src]="this.reload"
+        class="gridBtn"
+        alt=""
+        (click)="reloadCountry()"
+        style="margin-right: 2rem;"
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4" style="width: 100px;">
+      <img [src]="icon" alt="whether image" style="width: 180px;"/>
+    </div>
+    <div class="col-md-8">
+      <p>{{ this.data.temp }}</p>
+      <p>{{ this.data.cityTemp }}</p>
+      <p>{{ this.data.cityWind.speed }}ms {{ this.data.cityWind.deg }}deg</p>
+      <p>Pressure: {{ this.data.cityPressure }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <p>{{ (this.data.cityPastList[1].dt_txt | date:'fullDate').slice(0,3) }}</p>
+      <p><img [src]="icon" /></p>
+      <p>{{ this.data.cityPastList[1].main.temp }}</p>
+    </div>
+    <div class="col-md-2">
+      <p>{{ (this.data.cityPastList[8].dt_txt | date:'fullDate').slice(0,3) }}</p>
+      <p><img [src]="icon" /></p>
+      <p>{{ this.data.cityPastList[8].main.temp }}</p>
+    </div>
+    <div class="col-md-2">
+      <p>{{ (this.data.cityPastList[16].dt_txt | date:'fullDate').slice(0,3) }}</p>
+      <p><img [src]="icon" /></p>
+      <p>{{ this.data.cityPastList[16].main.temp }}</p>
+    </div>
+    <div class="col-md-2">
+      <p>{{ (this.data.cityPastList[24].dt_txt | date:'fullDate').slice(0,3) }}</p>
+      <p><img [src]="icon" /></p>
+      <p>{{ this.data.cityPastList[24].main.temp }}</p>
+    </div>
+    <div class="col-md-2">
+      <p>{{ (this.data.cityPastList[32].dt_txt | date:'fullDate').slice(0,3) }}</p>
+      <p><img [src]="icon" /></p>
+      <p>{{ this.data.cityPastList[32].main.temp }}</p>
+    </div>
+  </div>
+</div>

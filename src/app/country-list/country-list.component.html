@@ -15,17 +15,21 @@
         <p>Recent Locations</p>
         <hr>
         <ul>
-          <li *ngFor="let country of countries" #removeCountry>
-            <div class="row">
-              <div class="col-md-9">{{ country }}</div>
-              <div class="col-md-1">
-                <img [src]="btn.reload" class = "ctrl-btn" alt="reload-btn" style="width: 1rem;" (click)="reloadCountry()"/>
+          <li *ngFor="let country of countries;let i = index" >
+            <a href="#" (click)="countryDetais(i)">
+              <div class="row">
+                <div class="col-md-9">{{ this.countries[i].cityName }}-{{ this.countries[i].cityTemp}}F-{{ this.countries[i].cityWeather}}
+
+                </div>
+                <div class="col-md-1">
+                  <img [src]="btn.reload" class = "ctrl-btn" alt="reload-btn" style="width: 1rem;" (click)="reloadCountry(i)"/>
+                </div>
+                <div class="col-md-1">
+                  <img [src]="btn.remove" class = "ctrl-btn" alt="remove-btn" style="width: 0.9rem;" 
+                  (click)="removeCountry(i)"/>
+                </div>
               </div>
-              <div class="col-md-1">
-                <img [src]="btn.remove" class = "ctrl-btn" alt="remove-btn" style="width: 0.9rem;" 
-                (click)="removeCountry()"/>
-              </div>
-            </div>
+            </a>
           </li>
         </ul>
         <button class="btn btn-danger"

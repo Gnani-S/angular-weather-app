@@ -7,6 +7,12 @@ export interface WeatherData {
     city: City;
 }
 
+export interface countries {
+    cityName:string,
+    cityTemp:number,
+    cityWeather:string
+}
+
 export interface Main {
     temp: number;
     feels_like: number;
