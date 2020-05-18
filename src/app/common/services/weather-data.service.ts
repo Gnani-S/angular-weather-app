@@ -1,21 +1,29 @@
 import { Injectable, EventEmitter } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { catchError } from "rxjs/operators";
-import { Observable } from 'rxjS';
+import { catchError, map, tap } from "rxjs/operators";
+import { Observable } from 'rxjs';
+import { WeatherData } from '../interface/weatherData.model';
 
 @Injectable({
   providedIn: "root",
 })
 export class WeatherDataService {
-  feedCountry = new EventEmitter<any>();
-  countryName: string;
-  url = "http://api.openweathermap.org/data/2.5/weather?q=";
+  feedCountry = new EventEmitter<String>();
+  country = this.feedCountry.subscribe((response)=>{
+    this.country = response});
+  countryName: string = "";
+  url = "http://api.openweathermap.org/data/2.5/forecast?q=";
   appId = "&appid=c51223c219d6aec8cb8c5210449bd859";
 
   constructor(private http: HttpClient) {}
 
-  fetchData():Observable<any> {
-    return this.http.get(this.url + this.countryName + this.appId).pipe(catchError(this.errorHandler));
+  ngOnInit() {
+  }
+
+  fetchData():Observable<WeatherData> {
+    return this.http.get<WeatherData>(this.url + this.country + this.appId,{observe:"response"}).pipe(
+      map(response=>response.body),
+      catchError(this.errorHandler));
   }
 
   private errorHandler(errorResponse:HttpErrorResponse) {

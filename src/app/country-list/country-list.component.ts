@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { WeatherDataService } from '../common/services/weather-data.service';
-
+import {  WeatherDataService } from '../common/services/weather-data.service';
 @Component({
   selector: "country-list",
   templateUrl: "./country-list.component.html",
@@ -9,7 +8,8 @@ import { WeatherDataService } from '../common/services/weather-data.service';
 export class CountryListComponent implements OnInit {
   @ViewChild("inputCountry") countryInput: ElementRef<HTMLInputElement>;
   @ViewChild("removeCountry") removeCtr: ElementRef<HTMLInputElement>;
-  country: string;
+  country: string = "";
+  countryData: any;
   countries: Array<string> = [];
   btn: object = {
     add: "assets/btn-icons/addSign.svg",
@@ -17,29 +17,31 @@ export class CountryListComponent implements OnInit {
     reload: "assets/btn-icons/reload.svg",
   };
 
-  constructor(private weatherData:WeatherDataService) {}
+  constructor(private weatherService:WeatherDataService) {}
 
   ngOnInit() {
-    // this.weatherData.fetchData().subscribe((response)=>{console.log("response",response)},(error)=>{console.log("error",error)})
   }
 
   addCountry() {
-    this.weatherData.feedCountry.emit(this.country);
-    this.weatherData.fetchData().subscribe((response)=>{console.log("response",response)},(error)=>{console.log("error",error)})
     this.country = this.countryInput.nativeElement.value;
+    this.weatherService.feedCountry.emit(this.country);
+    this.weatherService.fetchData()
+      .subscribe((response)=>{this.countryData = response.city.name;},
+      (error)=>{});
     if (this.countries.length > 7) {
       this.countries.pop()
-      this.countries.unshift(this.country);
+      this.countries.unshift(this.countryData);
     } else {
-      this.countries.unshift(this.country);
+      setTimeout(()=>{this.countries.unshift(this.countryData)},1000);
     }
-    // console.log("Countries", this.countries);
-    // console.log("country", this.country);
-    // console.log("countryInput", this.countryInput);
   }
 
   reloadCountry() {
-    
+    let refreshData;
+    this.weatherService.fetchData()
+      .subscribe((response)=>{refreshData = response;
+      console.log("refreshData",refreshData)},
+      (error)=>{});
   }
 
   removeCountry() {
